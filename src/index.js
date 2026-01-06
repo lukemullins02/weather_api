@@ -62,6 +62,9 @@ async function getData(location = "london", key) {
 }
 
 function displayWeather() {
+  fahrenheit.classList.remove("invisible");
+  celsius.classList.remove("invisible");
+
   const weather_container = document.createElement("div");
   const location_name = document.createElement("p");
   const temp = document.createElement("p");
@@ -81,8 +84,8 @@ function displayWeather() {
   conditions.textContent = locationObj.conditions;
   feelsLike.textContent =
     "Feels Like: " + Math.round(locationObj.feelslike) + "°";
-  tempMax.textContent = "L:" + Math.round(locationObj.tempmax) + "°";
-  tempMin.textContent = "H:" + Math.round(locationObj.tempmin) + "°";
+  tempMax.textContent = "L: " + Math.round(locationObj.tempmax) + "°";
+  tempMin.textContent = "H: " + Math.round(locationObj.tempmin) + "°";
 
   weather_container.appendChild(location_name);
   weather_container.appendChild(temp);
