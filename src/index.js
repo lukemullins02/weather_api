@@ -66,6 +66,7 @@ function displayWeather() {
   celsius.classList.remove("invisible");
 
   const weather_container = document.createElement("div");
+  const card = document.createElement("div");
   const location_name = document.createElement("p");
   const temp = document.createElement("p");
   const conditions = document.createElement("p");
@@ -76,6 +77,7 @@ function displayWeather() {
 
   weather_container.classList.add("weather-container");
   maxMin.classList.add("max-min");
+  card.classList.add("card");
 
   const address = capitalize(locationObj.address);
 
@@ -87,13 +89,14 @@ function displayWeather() {
   tempMax.textContent = "L: " + Math.round(locationObj.tempmax) + "°";
   tempMin.textContent = "H: " + Math.round(locationObj.tempmin) + "°";
 
-  weather_container.appendChild(location_name);
-  weather_container.appendChild(temp);
-  weather_container.appendChild(conditions);
-  weather_container.appendChild(feelsLike);
+  card.appendChild(location_name);
+  card.appendChild(temp);
+  card.appendChild(conditions);
+  card.appendChild(feelsLike);
   maxMin.appendChild(tempMax);
   maxMin.appendChild(tempMin);
-  weather_container.appendChild(maxMin);
+  card.appendChild(maxMin);
+  weather_container.appendChild(card);
 
   body.appendChild(weather_container);
 }
