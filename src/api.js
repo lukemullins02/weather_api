@@ -6,4 +6,17 @@ async function getWeather(location, key) {
   return data;
 }
 
-export { getWeather };
+function parseWeather(data) {
+  const obj = {
+    address: data.address,
+    temp: data.currentConditions.temp,
+    conditions: data.currentConditions.conditions,
+    feelslike: data.currentConditions.feelslike,
+    tempmax: data.days[0].tempmax,
+    tempmin: data.days[0].tempmin,
+  };
+
+  return obj;
+}
+
+export { getWeather, parseWeather };
