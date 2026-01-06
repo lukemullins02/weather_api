@@ -78,7 +78,7 @@ h6 {
 
 /* Project CSS*/
 .invisible {
-  display: none;
+  visibility: hidden;
 }
 
 .roboto-text {
