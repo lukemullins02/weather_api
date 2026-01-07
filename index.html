@@ -4,8 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
   <script defer src="main.js"></script></head>
-  <body>
-    <h1>Hello</h1>
+  <body class="roboto-text">
+    <div>
+      <form class="search">
+        <div>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            required
+            placeholder="Enter Location Here"
+          />
+        </div>
+        <input type="submit" value="Submit" id="submit" />
+      </form>
+      <div class="buttons">
+        <button class="fahrenheit invisible">°F</button>
+        <button class="celsius invisible">°C</button>
+      </div>
+    </div>
   </body>
 </html>
