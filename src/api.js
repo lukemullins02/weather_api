@@ -6,7 +6,7 @@ async function getWeather(location, key) {
   return data;
 }
 
-function parseWeather(data) {
+function parseWeather(data, arr) {
   const obj = {
     address: data.address,
     temp: data.currentConditions.temp,
@@ -15,6 +15,10 @@ function parseWeather(data) {
     tempmax: data.days[0].tempmax,
     tempmin: data.days[0].tempmin,
   };
+
+  for (let i = 1; i < 8; i++) {
+    arr.push(data.days[i]);
+  }
 
   return obj;
 }

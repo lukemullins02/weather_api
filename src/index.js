@@ -1,5 +1,6 @@
 import "./styles.css";
 import { getWeather, parseWeather } from "./api";
+import { format, parseISO } from "date-fns";
 
 const form = document.querySelector("form");
 const body = document.querySelector("body");
@@ -10,6 +11,7 @@ const celsius = document.querySelector(".celsius");
 let locationObj;
 let celsiusObj;
 let farenheitObj;
+let arr = [];
 
 const API_KEY = "W69WXACXK2JNKFFHHZ9ADANRU";
 
@@ -28,6 +30,7 @@ function toCelsius(obj) {
   newObj.feelslike = Math.round((obj.feelslike - 32) * (5 / 9));
   newObj.tempmin = Math.round((obj.tempmin - 32) * (5 / 9));
   newObj.tempmax = Math.round((obj.tempmax - 32) * (5 / 9));
+  newObj.celsius = true;
 
   return newObj;
 }
@@ -52,8 +55,11 @@ fahrenheit.addEventListener("click", () => {
 });
 
 async function getData(location = "london", key) {
+  arr = [];
   const data = await getWeather(location, key);
-  locationObj = parseWeather(data);
+  locationObj = parseWeather(data, arr);
+  locationObj["celsius"] = false;
+
   farenheitObj = locationObj;
   celsiusObj = toCelsius(locationObj);
 
@@ -98,6 +104,33 @@ function displayWeather() {
   card.appendChild(maxMin);
   weather_container.appendChild(card);
 
+  const seven_container = document.createElement("div");
+  seven_container.classList.add("seven-container");
+
+  arr.forEach((item) => {
+    const eachDay = document.createElement("div");
+    const nextDate = document.createElement("p");
+    const nextMaxMin = document.createElement("p");
+    const nextConditions = document.createElement("p");
+
+    eachDay.classList.add("each-day");
+
+    nextDate.textContent = format(parseISO(item.datetime), "MM/dd/yyyy");
+    if (locationObj.celsius === false) {
+      nextMaxMin.textContent = `${item.tempmax}°/ ${item.tempmin}°`;
+    } else {
+      nextMaxMin.textContent = `${Math.round(
+        (item.tempmax - 32) * (5 / 9)
+      )}°/ ${Math.round((item.tempmin - 32) * (5 / 9))}°`;
+    }
+    nextConditions.textContent = item.conditions;
+
+    eachDay.appendChild(nextDate);
+    eachDay.appendChild(nextMaxMin);
+    eachDay.appendChild(nextConditions);
+    seven_container.appendChild(eachDay);
+    weather_container.appendChild(seven_container);
+  });
   body.appendChild(weather_container);
 }
 
