@@ -1,5 +1,7 @@
 import "./styles.css";
 import { getWeather, parseWeather } from "./api";
+import { toCelsius, numToCelsius } from "./celsius.js";
+import { capitalize } from "./capitalize.js";
 import { format, parseISO } from "date-fns";
 
 const form = document.querySelector("form");
@@ -22,25 +24,6 @@ form.addEventListener("submit", (e) => {
   const location = newLocation.get("title");
   getData(location, API_KEY);
 });
-
-function toCelsius(obj) {
-  let newObj;
-  newObj = { ...obj };
-  newObj.temp = Math.round((obj.temp - 32) * (5 / 9));
-  newObj.feelslike = Math.round((obj.feelslike - 32) * (5 / 9));
-  newObj.tempmin = Math.round((obj.tempmin - 32) * (5 / 9));
-  newObj.tempmax = Math.round((obj.tempmax - 32) * (5 / 9));
-  newObj.celsius = true;
-
-  return newObj;
-}
-
-function capitalize(str) {
-  str = str.toLowerCase();
-  return str.replace(/\b(\w)/g, (match, capture) => {
-    return capture.toUpperCase();
-  });
-}
 
 celsius.addEventListener("click", () => {
   locationObj = { ...celsiusObj };
@@ -119,9 +102,9 @@ function displayWeather() {
     if (locationObj.celsius === false) {
       nextMaxMin.textContent = `${item.tempmax}°/ ${item.tempmin}°`;
     } else {
-      nextMaxMin.textContent = `${Math.round(
-        (item.tempmax - 32) * (5 / 9)
-      )}°/ ${Math.round((item.tempmin - 32) * (5 / 9))}°`;
+      nextMaxMin.textContent = `${numToCelsius(item.tempmax)}°/ ${numToCelsius(
+        item.tempmin
+      )}°`;
     }
     nextConditions.textContent = item.conditions;
 
